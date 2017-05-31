@@ -1,0 +1,23 @@
+{
+  "name": "FSE.app",
+  "version": "0.0.1",
+  "description": "os and file system info",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/electron/electron-quick-start",
+  "keywords": [
+    "Electron",
+    "fs",
+    "os",
+    "information",
+    "system",
+    "file system"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "~1.6.2"
+  }
+}
