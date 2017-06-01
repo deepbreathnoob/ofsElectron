@@ -10,8 +10,7 @@ const os = require('os')
 const path = require('path')
 const url = require('url')
 
-const {ipcMain} = require('electron')
-
+const disk = require('diskinfo');
 
 
 
@@ -29,6 +28,7 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
+
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -68,6 +68,24 @@ app.on('activate', function () {
 // code. You can also put them in separate files and require them here.
 //
 
+//Disk information
+//
+var diskInfoObj = [];
+disk.getDrives(function(err, aDrives) {
+      diskInfoObj = aDrives;
+      for (var i = 0; i < aDrives.length; i++) {
+            diskInfoObj[i] = {
+              'Drive' : aDrives[i].filesystem,
+              'Blocks' : aDrives[i].blocks,
+              'Used' : aDrives[i].used,
+              'Available' : aDrives[i].available,
+              'Mounted' : aDrives[i].mounted
+            };
+      }
+});
+console.log(diskInfoObj[1]);
+
+
 //CPU architecture
 //os
 
@@ -87,17 +105,18 @@ let arch =  {
     "osRelease": osRelease
   };
 
-console.log(arch);
+//console.log(arch);
+//console.log(osArch);
 
 
 
 //ipc data transfer main.js <=> renderer.js
 //
+const {ipcMain} = require('electron')
 ipcMain.on('asynchronous-message', (event, arg) => {
-  console.log(arg)  // prints "ping"
-  event.sender.send('asynchronous-reply', function(){
-    return  osArch;
-  })
+  //console.log(arg)  // prints "ping"
+  event.sender.send('asynchronous-reply', arch)
+  //event.sender.send('asynchronous-reply1', disk)
 })
 
 
