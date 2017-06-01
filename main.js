@@ -4,8 +4,16 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+//Module for OS information
+const os = require('os')
+
 const path = require('path')
 const url = require('url')
+
+const {ipcMain} = require('electron')
+
+
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -58,3 +66,42 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+//
+
+//CPU architecture
+//os
+
+let osArch  = os.arch();
+let osCPU = os.cpus();
+let osPlatform = os.platform();
+let osRelease = os.release();
+
+let osCpuModel = osCPU[1].model;
+let osCpuMHZ = osCPU[1].speed;
+
+let arch =  {
+    "osArch": osArch ,
+    "osCpuModel": osCpuModel,
+    "osCpuMHZ": osCpuMHZ,
+    "osPlatform": osPlatform,
+    "osRelease": osRelease
+  };
+
+console.log(arch);
+
+
+
+//ipc data transfer main.js <=> renderer.js
+//
+ipcMain.on('asynchronous-message', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.sender.send('asynchronous-reply', function(){
+    return  osArch;
+  })
+})
+
+
+// ipcMain.on('synchronous-message', (event, arg) => {
+//   console.log(arg)  // prints "ping"
+//   event.returnValue = 'pong'
+// })

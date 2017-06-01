@@ -2,18 +2,51 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Fs & OS INFO</title>
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+    <!-- Insert this line above script imports  -->
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+
+<!-- normal script imports etc  -->
+<script src="./assets/js/jquery.min.js"></script>
+<script>require('./render/renderer.js');</script>
+
+
+<!-- Insert this line after script imports -->
+<script>if (window.module) module = window.module;</script>
+
+
+
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <div class="table-responsive">
+      <table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Arch</th>
+      <th>Header</th>
+      <th>Header</th>
+      <th>Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td id="arch1">tesyt</td>
+      <td id="cpuModel">Lorem</td>
+      <td id="osCpuMHZ">ipsum</td>
+      <td id="osPlatform">dolor</td>
+      <td id="osRelease">sit</td>
+    </tr>
+
+  </tbody>
+</table>
+
+    </div>
+
+
   </body>
 
-  <script>
-    // You can also require other files to run in this process
-    require('./renderer.js')
-  </script>
+
 </html>
