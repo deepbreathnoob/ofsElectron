@@ -70,20 +70,26 @@ app.on('activate', function () {
 
 //Disk information
 //
-var diskInfoObj = [];
+
+
+var disks;
+var tmp = [];
 disk.getDrives(function(err, aDrives) {
-      diskInfoObj = aDrives;
+
       for (var i = 0; i < aDrives.length; i++) {
-            diskInfoObj[i] = {
-              'Drive' : aDrives[i].filesystem,
-              'Blocks' : aDrives[i].blocks,
-              'Used' : aDrives[i].used,
-              'Available' : aDrives[i].available,
-              'Mounted' : aDrives[i].mounted
-            };
+            console.log('Drive ' + aDrives[i].filesystem);
+            getD(aDrives[i]);
       }
+}, function(){
+   console.log("")
 });
-console.log(diskInfoObj[1]);
+function getD(drive){
+  tmp.push(drive);
+}
+
+console.log(tmp);
+////funckja
+
 
 
 //CPU architecture
@@ -113,9 +119,9 @@ let arch =  {
 //ipc data transfer main.js <=> renderer.js
 //
 const {ipcMain} = require('electron')
-ipcMain.on('asynchronous-message', (event, arg) => {
-  //console.log(arg)  // prints "ping"
-  event.sender.send('asynchronous-reply', arch)
+ipcMain.on('ping-signal', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  event.sender.send('create-os-table', arch)
   //event.sender.send('asynchronous-reply1', disk)
 })
 
